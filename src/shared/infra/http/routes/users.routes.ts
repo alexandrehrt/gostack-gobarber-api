@@ -9,7 +9,10 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 const usersRouter = Router();
 const upload = multer(uploadConfig);
 
-// Create new user
+/**
+ * This route creates a new user
+ * Requires name, email and password
+ */
 usersRouter.post('/', async (request, response) => {
   try {
     const { name, email, password } = request.body;
@@ -26,6 +29,9 @@ usersRouter.post('/', async (request, response) => {
   }
 });
 
+/**
+ * This route uploads user's profile picture
+ */
 usersRouter.patch(
   '/avatar',
   ensureAuthenticated,
@@ -38,7 +44,7 @@ usersRouter.patch(
       avatarFilename: request.file.filename,
     });
 
-    delete user.password;
+    delete user.password; // so it won't be sent in the response
 
     return response.json(user);
   },

@@ -12,6 +12,11 @@ const appointmentsRouter = Router();
 // Authentication middleware
 appointmentsRouter.use(ensureAuthenticated);
 
+/**
+ * This routes will list and create appointments
+ * Available only for authenticated users
+ */
+
 // List all appointments
 appointmentsRouter.get('/', async (request, response) => {
   const appointmentsRepository = getCustomRepository(AppointmentsRepository);
@@ -24,7 +29,7 @@ appointmentsRouter.get('/', async (request, response) => {
 appointmentsRouter.post('/', async (request, response) => {
   const { provider_id, date } = request.body;
 
-  const parsedDate = parseISO(date);
+  const parsedDate = parseISO(date); // convert String to Date
 
   const createAppointment = new CreateAppointmentService();
 

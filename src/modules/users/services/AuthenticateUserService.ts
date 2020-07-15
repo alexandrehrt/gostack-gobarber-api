@@ -16,6 +16,10 @@ interface Response {
   token: string;
 }
 
+/**
+ * This class will check the user's email and password, generate a token,
+ * and return the user and the token
+ */
 export default class AuthenticateUserService {
   public async execute({ email, password }: Request): Promise<Response> {
     const userRepository = getRepository(User);

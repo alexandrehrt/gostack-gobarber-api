@@ -4,7 +4,7 @@ import Appointment from '../models/Appointment';
 
 @EntityRepository(Appointment)
 class AppointmentsRepository extends Repository<Appointment> {
-  // Verificar se existe outro agendamento no mesmo horário
+  // Check if there is another appointment at the same time
   public async findByDate(date: Date): Promise<Appointment | null> {
     const findAppointment = await this.findOne({ where: { date } });
 

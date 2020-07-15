@@ -10,6 +10,10 @@ interface TokenPayload {
   sub: string;
 }
 
+/**
+ * This function will check if the user is authenticated and, if so, insert
+ * the id in the request
+ */
 export default function ensureAuthenticated(
   request: Request,
   response: Response,
@@ -22,11 +26,14 @@ export default function ensureAuthenticated(
   // JWT validation
   const [, token] = authHeader.split(' ');
   try {
+    // if successfull, will return iat, exp and sub
     const decoded = verify(token, authConfig.jwt.secret);
 
+    // sub = subject = user who generated the token
     const { sub } = decoded as TokenPayload;
 
-    request.user = { id: sub };
+    // look src/@types/express.d.ts
+    request.user = { id: sub }; // user id now is available in other routes
 
     return next();
   } catch {

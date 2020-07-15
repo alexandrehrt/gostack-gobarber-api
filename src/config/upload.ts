@@ -7,6 +7,7 @@ const tmpfolder = path.resolve(__dirname, '..', '..', 'tmp');
 export default {
   directory: tmpfolder,
 
+  // rename and save avatar
   storage: multer.diskStorage({
     destination: tmpfolder,
     filename(request, file, callback) {
