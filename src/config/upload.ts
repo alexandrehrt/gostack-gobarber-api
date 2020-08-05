@@ -5,9 +5,10 @@ import multer from 'multer';
 const tmpfolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 export default {
-  directory: tmpfolder,
+  tmpfolder,
+  uploadsFolder: path.resolve(tmpfolder, 'uploads'),
 
-  // rename and save avatar
+  // Rename and save avatar
   storage: multer.diskStorage({
     destination: tmpfolder,
     filename(request, file, callback) {
