@@ -4,7 +4,7 @@ import { verify } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 
-interface TokenPayload {
+interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
@@ -30,7 +30,7 @@ export default function ensureAuthenticated(
     const decoded = verify(token, authConfig.jwt.secret);
 
     // sub = subject = user who generated the token
-    const { sub } = decoded as TokenPayload;
+    const { sub } = decoded as ITokenPayload;
 
     // look src/@types/express.d.ts
     request.user = { id: sub }; // user id now is available in other routes
