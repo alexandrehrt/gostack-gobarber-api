@@ -14,7 +14,6 @@ class AppointmentsRepository implements IAppointmentsRepository {
     this.ormRepository = getRepository(Appointment);
   }
 
-  // Check if there is another appointment at the same time
   public async findByDate(date: Date): Promise<Appointment | undefined> {
     const findAppointment = await this.ormRepository.findOne({
       where: { date },
@@ -67,9 +66,14 @@ class AppointmentsRepository implements IAppointmentsRepository {
 
   public async create({
     provider_id,
+    user_id,
     date,
   }: ICreateAppointmentDTO): Promise<Appointment> {
-    const appointment = this.ormRepository.create({ provider_id, date });
+    const appointment = this.ormRepository.create({
+      provider_id,
+      user_id,
+      date,
+    });
 
     await this.ormRepository.save(appointment);
 
